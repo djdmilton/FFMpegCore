@@ -48,7 +48,8 @@ namespace FFMpegCore
         /// <param name="inputIndex">null means, the previous input will be used</param>
         public FFMpegArguments MapMetaData(int? inputIndex = null, Action<FFMpegArgumentOptions>? addArguments = null) => WithInput(new MapMetadataArgument(inputIndex), addArguments);
 
-        private FFMpegArguments WithInput(IInputArgument inputArgument, Action<FFMpegArgumentOptions>? addArguments)
+        // DJDM - made public so that inputs may be extended outside of FFMpegCore
+        public FFMpegArguments WithInput(IInputArgument inputArgument, Action<FFMpegArgumentOptions>? addArguments)
         {
             var arguments = new FFMpegArgumentOptions();
             addArguments?.Invoke(arguments);
@@ -62,7 +63,8 @@ namespace FFMpegCore
         public FFMpegArgumentProcessor OutputToUrl(Uri uri, Action<FFMpegArgumentOptions>? addArguments = null) => ToProcessor(new OutputUrlArgument(uri.ToString()), addArguments);
         public FFMpegArgumentProcessor OutputToPipe(IPipeSink reader, Action<FFMpegArgumentOptions>? addArguments = null) => ToProcessor(new OutputPipeArgument(reader), addArguments);
 
-        private FFMpegArgumentProcessor ToProcessor(IOutputArgument argument, Action<FFMpegArgumentOptions>? addArguments)
+        // DJDM - made public so that outputs may be extended outside of FFMpegCore
+        public FFMpegArgumentProcessor ToProcessor(IOutputArgument argument, Action<FFMpegArgumentOptions>? addArguments)
         {
             var args = new FFMpegArgumentOptions();
             addArguments?.Invoke(args);
