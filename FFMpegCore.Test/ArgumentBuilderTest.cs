@@ -53,6 +53,33 @@ namespace FFMpegCore.Test
         }
 
         [TestMethod]
+        public void Builder_BuildString_HideBanner()
+        {
+            var str = FFMpegArguments.FromFileInput("input.mp4")
+                .WithGlobalOptions(opt => opt.WithHideBanner())
+                .OutputToFile("output.mp4", false).Arguments;
+            Assert.AreEqual("-hide_banner -i \"input.mp4\" \"output.mp4\"", str);
+        }
+
+        [TestMethod]
+        public void Builder_BuildString_NullCustomGlobal()
+        {
+            var str = FFMpegArguments.FromFileInput("input.mp4")
+                .WithGlobalOptions(opt => opt.WithCustomOption(null!))
+                .OutputToFile("output.mp4", false).Arguments;
+            Assert.AreEqual(" -i \"input.mp4\" \"output.mp4\"", str);
+        }
+
+        [TestMethod]
+        public void Builder_BuildString_CustomGlobal()
+        {
+            var str = FFMpegArguments.FromFileInput("input.mp4")
+                .WithGlobalOptions(opt => opt.WithCustomOption("-hide_banner"))
+                .OutputToFile("output.mp4", false).Arguments;
+            Assert.AreEqual("-hide_banner -i \"input.mp4\" \"output.mp4\"", str);
+        }
+
+        [TestMethod]
         public void Builder_BuildString_AudioCodec_Fluent()
         {
             var str = FFMpegArguments.FromFileInput("input.mp4").OutputToFile("output.mp4", false,
