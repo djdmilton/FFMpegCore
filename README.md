@@ -8,6 +8,10 @@
 
 A .NET Standard FFMpeg/FFProbe wrapper for easily integrating media analysis and conversion into your .NET applications. Supports both synchronous and asynchronous calls
 
+This is a fork of the original FFMpegCore project for the purposes of extensibility and for adding I/O functionality using TCP/IP as an alternative to named pipes.
+
+Named pipes are an issue for Unity (for Windows, at least), as the shared libraries for Unity do not implement them! They do, however, have access to TCP/IP streams.
+
 # API
 
 ## FFProbe
